@@ -22,6 +22,7 @@ def addUser():
             email = request.form('Email')
             phoneNumber = int(request.form('pNumber'))
             birthDate = request.form('DOB')
+            SSN = request.form('ssn')
 
             if phoneNumber > 9999999999 or phoneNumber < 0:
                 msg = "Invalid phone number."
@@ -38,6 +39,14 @@ def addUser():
             if goodEmail == 0:
                 msg = "Invlaid email address."
                 return render_template('signup.html')
+            
+            if SSN > 999999999 or SSN < 0:
+                msg = "Invalid SSN."
+                return render_template('signup.html')
+            
+            if password != confirm:
+                msg = "Passwords do not match"
+                return render_template('signup.html')
 
             with sqlite3.connect("SiteData.db") as con:        
                 cur = con.cursor()
@@ -47,6 +56,20 @@ def addUser():
                 if sameUsername: 
                     msg = "This username is already in use."
                     return render_template('signup.html')
+                
+                cur.execute("SELECT * FROM Users WHERE Email = ?", (email,))
+                sameEmail = cur.fetchall
+                if sameEmail: 
+                    msg = "This Email is already in use."
+                    return render_template('signup.html')
+                
+                cur.execute("SELECT * FROM Users WHERE SSN = ?", (SSN,))
+                sameSSN = cur.fetchall
+                if sameSSN: 
+                    msg = "This SSN is already in use."
+                    return render_template('signup.html')
+                
+                cur.execute("INSERT INTO Users (Username, Password, CreationDate, FirstName, LastName, Email, Phone, DOB, SSN) VALUES (?,?,?,?,?,?,?,?,?)", (username, password, time, firstName, lastName, email, phoneNumber, birthDate, SSN))
 
         except: 
             con.rollback()

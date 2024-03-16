@@ -21,9 +21,32 @@ def addUser():
             lastName = request.form('lName').title()
             email = request.form('Email')
             phoneNumber = int(request.form('pNumber'))
-            birthYear = int(str(request.form('DOB'))[:4])
-            birthMonth = int(str(request.form('DOB'))[4:-2])
-            birthDay = int(str(request.form('DOB'))[-2:])
+            birthDate = request.form('DOB')
+
+            if phoneNumber > 9999999999 or phoneNumber < 0:
+                msg = "Invalid phone number."
+                return render_template('signup.html')
+            
+            if email[-4:] != ".com":
+                msg = "Invlaid email address."
+                return render_template('signup.html')
+            
+            for i in email:
+                if i == "@":
+                    goodEmail = 1
+
+            if goodEmail == 0:
+                msg = "Invlaid email address."
+                return render_template('signup.html')
+
+            with sqlite3.connect("SiteData.db") as con:        
+                cur = con.cursor()
+                
+                cur.execute("SELECT * FROM Users WHERE Username = ?", (username,))
+                sameUsername = cur.fetchall
+                if sameUsername: 
+                    msg = "This username is already in use."
+                    return render_template('signup.html')
 
         except: 
             con.rollback()

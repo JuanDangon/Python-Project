@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Facebook API Example</title>
+</head>
+<body>
+    <h1>Welcome to the Facebook API Example</h1>
+    <p>This is a demonstration of using the Facebook Graph API to fetch user data.</p>
+
+    <!-- Facebook Login Button -->
+    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        Login with Facebook
+    </fb:login-button>
+    
+    <!-- Include the Facebook SDK script -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+    
+    <!-- Include your custom JavaScript file -->
+    <script src="facebookApi.js"></script>
+</body>
+</html>

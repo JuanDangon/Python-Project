@@ -4,13 +4,14 @@ import sqlite3
 
 app = Flask(__name__)
 
+HOST = "https://graph.facebook.com"
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
 
-@app.route('signup.html', methods=['POST', 'GET'])
+@app.route('/signup', methods=['POST', 'GET'])
 def addUser():
     con = None
     if request.method == 'POST':
@@ -72,7 +73,6 @@ def addUser():
                     return render_template('signup.html')
                 
                 cur.execute("INSERT INTO Users (Username, Password, CreationDate, FirstName, LastName, Email, Phone, DOB, SSN) VALUES (?,?,?,?,?,?,?,?,?)", (username, password, time, firstName, lastName, email, phoneNumber, birthDate, SSN))
-
         except: 
             con.rollback()
             msg = "error in insert operation"
@@ -81,5 +81,46 @@ def addUser():
         return render_template('signup.html')
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+
+
+
+@app.route('/viewdata', methods=['GET', 'POST'])
+def viewdata():
+
+
+@app.route('/viewaccount', methods=['GET', 'POST'])
+def viewaccount():
+
+
+@app.route('/viewalldata', methods=['GET', 'POST'])
+def viewalldata():
+
+"""
+def exchange_code_for_token(code):
+    url = 'https://graph.facebook.com/v12.0/oauth/access_token'
+
+    params = {
+        'client_id': 'your-facebook-app-id',
+        'client_secret': 'your-facebook-app-secret',
+        'redirect_uri': 'your-redirect-uri',
+        'code': code
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        access_token = response.json()['access_token']
+        return access_token
+    else:
+        print(f"Error: {response.status_code} - {response.text}")
+        return None
+
+"""
 if __name__ == '__main__':
     app.run(debug=True)

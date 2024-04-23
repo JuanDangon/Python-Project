@@ -11,6 +11,20 @@
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
         Login with Facebook
     </fb:login-button>
+
+    <div
+        class="fb-like"
+        data-share="true"
+        data-width="450"
+        data-show-faces="true">
+    </div>
+    
+    <!-- Display User Data -->
+    <div id="userData">
+        <p>User ID: <span id="userID"></span></p>
+        <p>User Name: <span id="userName"></span></p>
+        <p>User Email: <span id="userEmail"></span></p>
+    </div>
     
     <!-- Include the Facebook SDK script -->
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>

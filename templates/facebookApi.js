@@ -1,5 +1,3 @@
-// facebookApi.js
-
 window.fbAsyncInit = function() {
     FB.init({
         appId: '1132469394552936',
@@ -7,18 +5,8 @@ window.fbAsyncInit = function() {
         xfbml: true,
         version: 'v13.0'
     });
+    FB.AppEvents.logPageView();
 };
-
-// Function to initialize the Facebook SDK
-function initializeFacebookSDK() {
-    // Replace 'YOUR_APP_ID_HERE' with your actual Facebook App ID
-    FB.init({
-        appId: 'YOUR_APP_ID_HERE',
-        cookie: true,
-        xfbml: true,
-        version: 'v13.0'
-    });
-}
 
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -42,6 +30,13 @@ function fetchUserData(accessToken) {
                 console.log("User ID: " + userID);
                 console.log("User Name: " + userName);
                 console.log("User Email: " + userEmail);
+                // Update HTML elements with user data
+                document.getElementById('userID').textContent = userID;
+                document.getElementById('userName').textContent = userName;
+                document.getElementById('userEmail').textContent = userEmail;
+
+                // Pass the access token to fetchInstagramUserData
+                fetchInstagramUserData(accessToken);
             } else {
                 console.log("Error fetching user data:", response.error);
             }
@@ -49,6 +44,26 @@ function fetchUserData(accessToken) {
     );
 }
 
+function fetchInstagramUserData(accessToken) {
+    // Define the URL for the API endpoint with the necessary parameters
+    const apiUrl = `https://graph.facebook.com/17841405822304914/insights?metric=impressions,reach,profile_views&period=day&access_token=${accessToken}`;
+
+    // Make the GET request using fetch
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log("Insights Data:", data);
+            // Process the data as needed
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
 
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
@@ -63,18 +78,7 @@ function checkLoginState() {
     });
 }
 
-
-// Load the Facebook SDK asynchronously
-(function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
-
-// Initialize the Facebook SDK and fetch user data once loaded
+// Initialize the Facebook SDK and check login state once loaded
 window.onload = function() {
-    initializeFacebookSDK();
-    fetchUserData();
+    checkLoginState();
 };

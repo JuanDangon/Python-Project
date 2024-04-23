@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>viewData</title>
+</head>
+<body>
+    <h1>User Data for {{ AccountName }}</h1>
+    <table border = 1>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+        </tr>
+
+        {% for row in rows %}
+            <tr>
+                <td>{{row["User ID"]}}</td>
+                <td>{{row["Username"]}}</td>
+                <td>{{row["Password"]}}</td>
+                <td>{{row["First Name"]}}</td>
+                <td>{{row["Last Name"]}}</td>
+                <td>{{row["Date of Birth"]}}</td>
+                <td>{{row["Email"]}}</td>
+                <td>{{row["Phone Number"]}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <h4><a href = "/">Back to Home</a></h4>
+</body>
+</html>

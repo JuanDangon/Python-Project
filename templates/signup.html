@@ -1,17 +1,119 @@
 <!DOCTYPE html>
 <html>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 <head>
     <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to bottom, #5faed8 0%, #bb25fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;         
+            flex-direction: column;  
+            align-items: center;      
+            justify-content: center; 
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: fit-content;    
+            margin: auto;   
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group,
+        .button-group {
+            margin-bottom: 20px;
+            display: flex;  
+            flex-direction: column;  
+            align-items: center;  
+            justify-content: center;  
+            width: fit-content;  
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            font-family: 'Lora', serif;
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; 
+        }
+
+        button {
+            font-family: 'Lora', serif;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #f95c24;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f63636;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button-link {
+            display: inline-block; 
+            width: fit-content;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #5661b1;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s;
+            font-family: 'Lora', serif;
+        }
+
+        .button-link:hover,
+        .button-link:focus {
+            background-color: #256466;
+            color: white;
+            outline: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Sign Up</h1>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
     <form method="POST" action="/signup">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+        <h1>Sign Up</h1>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <div class="form-group">
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" placeholder="Password" required>
+        </div>
         <button type="submit">Sign Up</button>
+        <div class="button-group">
+            <a href="/login" class="button-link" class="button-link">Go to Login</a> 
+            <a href="/" class="button-link" class="button-link">Home Page</a>
+        </div>
     </form>
 </body>
 </html>

@@ -48,7 +48,7 @@ cursor.execute('''
 ''')
 
 
-# Create RolePermissions table
+# these are the permissions each role has 
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS role_permissions (
         role_id INTEGER,

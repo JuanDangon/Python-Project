@@ -36,6 +36,17 @@ class UserImage(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(50), unique=True, nullable=False)
+
+class Permission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    permission_name = db.Column(db.String(50), unique=True, nullable=False)
+
+class RolePermission(db.Model):
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), primary_key=True)
+    permission_id = db.Column(db.Integer, db.ForeignKey('permission.id'), primary_key=True)
 
 # Set up a temporary directory for storing uploaded images
 UPLOAD_FOLDER = "uploads"
@@ -114,6 +125,32 @@ def home():
         return render_template('home.html', remaining_usage=remaining_usage, current_user=user)
     else:
         return render_template('home.html', current_user=user)
+    
+
+@app.route('/admin')
+def admin():
+    user_id = session.get('user_id')
+    if not user_id:
+        return redirect('/login')
+
+    user = User.query.get(user_id)
+    if not user:
+        return redirect('/login')
+
+    # Check if the user has the required permission
+    has_permission = db.session.query(db.exists().where(
+        db.and_(
+            User.id == user_id,
+            User.role == Role.role_name,
+            RolePermission.permission_id == Permission.id,
+            Permission.permission_name == 'adminAccess'
+        )
+    )).scalar()
+
+    if not has_permission:
+        return redirect('/home', error='You do not have permission to access this page.')
+
+    return render_template('admin.html')
 
 @app.route('/admin')
 def admin():

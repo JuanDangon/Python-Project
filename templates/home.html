@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram Engagement Analyzer</title>
+</head>
+<body>
+    <h1>Welcome to Instagram Engagement Analyzer</h1>
+    {% if current_user.role == 'premium' or current_user.role == 'admin' %}
+        <p>You are a premium user!</p>
+    {% else %}
+        <p>You are currently using the basic plan.</p>
+        <a href="{{ url_for('upgrade') }}">Upgrade to Premium</a>
+    {% endif %}
+    {% if remaining_usage is defined and current_user.role == 'basic' %}
+        <p>Remaining usage count: {{ remaining_usage }}</p>
+    {% endif %}
+    {% if current_user.role == 'admin' %}
+    <a href="{{ url_for('admin') }}">Admin Page</a>
+    {% endif %}
+    {% if current_user.role == 'premium' %}
+    <a href="{{ url_for('premium') }}">Premium Page</a>
+    {% endif %}
+    {% if current_user.role == 'premium' %} 
+    <form action="{{ url_for('analyze_stored') }}" method="POST">
+        <input type="submit" value="Analyze with Stored Images">
+    </form>
+    {% endif %}
+    
+    <form action="{{ url_for('analyze') }}" method="POST" enctype="multipart/form-data">
+        <label for="profile_image">Upload Instagram Profile Image:</label>
+        <input type="file" name="profile_image" required><br>
+        <label for="post_images">Upload Instagram Post Images (max 5):</label>
+        <input type="file" name="post_images" multiple accept="image/*" max="5" required><br>
+        <input type="submit" value="Analyze">
+    </form>
+</body>
+</html>

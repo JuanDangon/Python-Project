@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Social Media Analytics Sign Up</title>
-    </head>
-    <body>
-        <h1>Submit a New Review</h1>
-        <form action="{{url_for('signup')}}" method="POST">
-            <h2>Movie Information</h2>
-            Create a Username: <input type = "text" name = "Username" /><br><br>
-            Create a Password: <input type = "text" name = "Password" /><br><br>
-            Confirm Password: <input type = "text" name = "Confirm" /><br><br>
-            First Name: <input type = "text" name = "fName" /><br><br>
-            Last Name: <input type = "text" name = "lName" /><br><br>
-            Date of Birth (YYYY-MM-DD): <input type = "text" name = "DOB" /><br><br>
-            Email Address: <input type = "text" name = "Email" /><br><br>
-            Phone Number(XXX-XXX-XXXX): <input type = "text" name = "pNumber" /><br><br>
-            <input type = "submit" value = "submit" /><br>
-        </form>
-        <a href="/">Back to Home</a><br>
-    </body>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+    <h1>Sign Up</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/signup">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
 </html>

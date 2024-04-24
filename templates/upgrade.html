@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upgrade to Premium</title>
+</head>
+<body>
+    <h1>Upgrade to Premium</h1>
+    <p>Hello, {{ user.username }}! Upgrade to premium to enjoy unlimited usage and additional features.</p>
+    <form action="{{ url_for('upgrade') }}" method="POST">
+        <label for="payment">Payment Amount:</label>
+        <input type="text" name="payment" required><br>
+        <input type="submit" value="Upgrade">
+    </form>
+</body>
+</html>

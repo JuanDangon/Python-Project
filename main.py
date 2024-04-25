@@ -159,6 +159,13 @@ def manage_users():
         user = User.query.filter_by(username=username).first()
         if user:
             if 'delete' in request.form:
+                # Delete associated user images
+                user_images = UserImage.query.filter_by(user_id=user.id).all()
+                for user_image in user_images:
+                    db.session.delete(user_image)
+                    db.session.commit()
+
+                # Delete the user
                 db.session.delete(user)
                 db.session.commit()
                 return redirect('/admin')  # Redirect after deleting user

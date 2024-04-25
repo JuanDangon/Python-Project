@@ -27,7 +27,7 @@ cursor.execute('''
         image_type TEXT NOT NULL,
         image_path TEXT NOT NULL,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES user (id)
+        FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
     )
 ''')
 

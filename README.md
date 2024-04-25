@@ -50,7 +50,7 @@ Libraries Used:
 
 Separation of Work:
 --Lucas Compton: Documentation (README/Distribution Plan), Database Setup, frontend framework
---Trevor Cooley:
+--Trevor Cooley: RBAC, Database Work
 --Juan Dangon:
 --Jake Tyler: Front end development, OpenAI implementation
 

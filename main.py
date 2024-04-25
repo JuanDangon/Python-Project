@@ -12,12 +12,15 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.exc import IntegrityError
+from io import BytesIO
+from PIL import Image
 
 app = Flask(__name__)
+
 client = OpenAI(api_key="sk-proj-PCe4rXxbbY8jzeqKRwiqT3BlbkFJEWR5gtvDCvcbDxz6PXGA")
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/instagram.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/juanmanueldangon/OpenAITest/instance/instagram.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/jake/Documents/School/Python-Project/instance/instagram.db'
 app.config['SECRET_KEY'] = 'c8a5f9e1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9' # Set a secure secret key for session handling
 db = SQLAlchemy(app)
 
@@ -36,6 +39,17 @@ class UserImage(db.Model):
     image_path = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+class Role(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    role_name = db.Column(db.String(50), unique=True, nullable=False)
+
+class Permission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    permission_name = db.Column(db.String(50), unique=True, nullable=False)
+
+class RolePermission(db.Model):
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'), primary_key=True)
+    permission_id = db.Column(db.Integer, db.ForeignKey('permission.id'), primary_key=True)
 
 # Set up a temporary directory for storing uploaded images
 UPLOAD_FOLDER = "uploads"
@@ -114,6 +128,7 @@ def home():
         return render_template('home.html', remaining_usage=remaining_usage, current_user=user)
     else:
         return render_template('home.html', current_user=user)
+    
 
 @app.route('/admin')
 def admin():
@@ -226,6 +241,9 @@ def analyze():
     db.session.commit()
 
     return render_template('suggestions.html', suggestions=message_content)
+
+
+
 
 @app.route('/analyze_stored', methods=['POST'])
 def analyze_stored():

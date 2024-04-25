@@ -1,24 +1,189 @@
 <!DOCTYPE html>
 <html>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap" rel="stylesheet">
 <head>
     <title>Premium Page</title>
+    <style>
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to bottom, #5faed8 0%, #bb25fc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        div.container {
+            display: flex;  
+            flex-direction: column;  
+            align-items: center;  
+            justify-content: center;  
+            width: fit-content;  
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        form {
+            display: flex;         
+            flex-direction: column;  
+            align-items: center;      
+            justify-content: center; 
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: fit-content;    
+            margin: auto;   
+        }
+
+        p {
+            display: inline-block; 
+            width: fit-content;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #be698d;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s;
+            font-family: 'Lora', serif;
+        }
+
+        label {
+            display: inline-block; 
+            width: fit-content;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #5661b1;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s;
+            font-family: 'Lora', serif;
+        }
+
+        button:hover {
+            background-color: #f63636;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .button-link {
+            display: inline-block; 
+            width: fit-content;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #f95c24;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s;
+            font-family: 'Lora', serif;
+        }
+
+        .button-link:hover,
+        .button-link:focus {
+            background-color: #f63636;
+            color: white;
+            outline: none;
+        }
+
+        .button-style {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #5661b1;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+            font-size: 16px; /* Larger font size for better readability */
+        }
+
+        .button-style:hover {
+            background-color: #d81111;
+        }
+
+        .input-hidden {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #f95c24; /* A different color to distinguish from the browse buttons */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px; /* Consistent font size */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff1212;
+        }
+
+        .form-upload {
+            margin-bottom: 20px; 
+        }
+
+        .button-group {
+            margin-top: 20px; 
+            justify-content: center; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ user.username }}!</h1>
-    
-    <h2>Profile Image</h2>
-    <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="profile_image">
-        <input type="submit" value="Upload Profile Image">
-    </form>
-    
-    <h2>Post Images</h2>
-    <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data">
-        <input type="file" name="post_images" multiple>
-        <input type="submit" value="Upload Post Images">
-    </form>
-    
-    <a href="/home">Back to Home</a>
-    <a href="/logout">Logout</a>
+    <div class="container">
+        <h1>Welcome, {{ user.username }}!</h1>
+        
+        <h2>Profile Image</h2>
+        <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data" class="form-upload">
+            <input type="file" name="profile_image">
+            <input type="submit" value="Upload Profile Image">
+        </form>
+        
+        <h2>Post Images</h2>
+        <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data" class="form-upload">
+            <input type="file" name="post_images" multiple>
+            <input type="submit" value="Upload Post Images">
+        </form>
+        
+        <div class="button-group">
+            <a href="/login" class="button-link" class="button-link">Sign Out/a> 
+            <a href="/" class="button-link" class="button-link">Home Page</a>
+        </div>
+    </div>
 </body>
 </html>

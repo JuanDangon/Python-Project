@@ -39,10 +39,10 @@ Libraries Used:
 
 
 Separation of Work:
-Lucas Compton: Documentation (README/Distribution Plan), Database Setup, frontend framework
-Trevor Cooley:
-Juan Dangon:
-Jake Tyler :
+--Lucas Compton: Documentation (README/Distribution Plan), Database Setup, frontend framework
+--Trevor Cooley:
+--Juan Dangon:
+--Jake Tyler :
 
 
 Our group had planned on using Meta's Instagram Graph API to create a similar 

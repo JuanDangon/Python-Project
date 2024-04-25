@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Premium Page</title>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+    
+    <h2>Profile Image</h2>
+    <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="profile_image">
+        <input type="submit" value="Upload Profile Image">
+    </form>
+    
+    <h2>Post Images</h2>
+    <form action="{{ url_for('premium') }}" method="POST" enctype="multipart/form-data">
+        <input type="file" name="post_images" multiple>
+        <input type="submit" value="Upload Post Images">
+    </form>
+    
+    <a href="/home">Back to Home</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>

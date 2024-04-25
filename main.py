@@ -16,7 +16,8 @@ from io import BytesIO
 from PIL import Image
 
 app = Flask(__name__)
-client = OpenAI(api_key="")
+
+client = OpenAI(api_key="sk-proj-PCe4rXxbbY8jzeqKRwiqT3BlbkFJEWR5gtvDCvcbDxz6PXGA")
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/instagram.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/jake/Documents/School/Python-Project/instance/instagram.db'
@@ -151,6 +152,8 @@ def manage_users():
     if admin_user.role != 'admin':
         return redirect('/home', error='You must be an admin to access this page.')
 
+    user = None  # Initialize user variable
+
     if request.method == 'POST':
         username = request.form['username']
         user = User.query.filter_by(username=username).first()
@@ -158,11 +161,13 @@ def manage_users():
             if 'delete' in request.form:
                 db.session.delete(user)
                 db.session.commit()
+                return redirect('/admin')  # Redirect after deleting user
             elif 'promote' in request.form:
                 user.role = 'premium'
                 db.session.commit()
-        return redirect('/admin')
-    return render_template('admin.html', user=None)
+                return redirect('/admin')  # Redirect after promoting user
+
+    return render_template('admin.html', user=user)  # Pass the user object to the template
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -199,7 +204,7 @@ def analyze():
             "content": [
                 {
                     "type": "text",
-                    "text": "Give a short description of what each instagram post image contains. Then analyze the user's Instagram profile image and post images to provide suggestions for increasing engagement."
+                    "text": "You are a successful instagram influencer who has a keen eye for detail when it comes to giving advice to other instagram users who want to increase their engagement. Identify the image showing the entire instagram profile and give a rough estimate of the follower count of the user. Then analyze the user's post images to provide suggestions for increasing engagement."
                 },
                 {
                     "type": "image_url",
@@ -265,7 +270,7 @@ def analyze_stored():
             "content": [
                 {
                     "type": "text",
-                    "text": "Give a short description of what each Instagram post image contains. Then analyze the user's Instagram profile image and post images to provide suggestions for increasing engagement."
+                    "text": "You are a successful instagram influencer who has a keen eye for detail when it comes to giving advice to other instagram users who want to increase their engagement. Start by thanking the user for choosing to pay for a premium membership to the instagram engagement application. Identify the image showing the entire instagram profile and give a rough estimate of the follower count of the user. Then analyze the user's post images to provide suggestions for increasing engagement."
                 }
             ] + ([
                 {

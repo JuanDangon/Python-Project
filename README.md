@@ -24,6 +24,14 @@ be able to add and delete users, as well as modify individual user permissions.
 -Setup.py should create a folder called instances where the databse will be stored
 -main.py should create a folder called uploads when images are analyzed
 
+***Run setup.py to initialize the database prior to running main.py***
+
+***In main.py, replace this line with your own path***
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/jake/Documents/School/Python-Project/instance/instagram.db
+
+The API key on GitHub will be an old API key. The key will be disabled if it is published
+on Github, so user must use their own API key before use.
+
 
 Libraries Used:
 --os

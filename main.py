@@ -12,12 +12,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.exc import IntegrityError
+from io import BytesIO
+from PIL import Image
 
 app = Flask(__name__)
-client = OpenAI(api_key="sk-proj-XkFPt4pekFXuZvl8PHR0T3BlbkFJLiqQZctgDhe35fh2CUET")
+client = OpenAI(api_key="")
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/instagram.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/juanmanueldangon/OpenAITest/instance/instagram.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/jake/Documents/School/Python-Project/instance/instagram.db'
 app.config['SECRET_KEY'] = 'c8a5f9e1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9' # Set a secure secret key for session handling
 db = SQLAlchemy(app)
 
@@ -134,31 +136,6 @@ def admin():
         return redirect('/login')
 
     user = User.query.get(user_id)
-    if not user:
-        return redirect('/login')
-
-    # Check if the user has the required permission
-    has_permission = db.session.query(db.exists().where(
-        db.and_(
-            User.id == user_id,
-            User.role == Role.role_name,
-            RolePermission.permission_id == Permission.id,
-            Permission.permission_name == 'adminAccess'
-        )
-    )).scalar()
-
-    if not has_permission:
-        return redirect('/home', error='You do not have permission to access this page.')
-
-    return render_template('admin.html')
-
-@app.route('/admin')
-def admin():
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
-
-    user = User.query.get(user_id)
     if user.role != 'admin':
         return redirect('/home', error='You must be an admin to access this page.')
 
@@ -259,6 +236,9 @@ def analyze():
     db.session.commit()
 
     return render_template('suggestions.html', suggestions=message_content)
+
+
+
 
 @app.route('/analyze_stored', methods=['POST'])
 def analyze_stored():

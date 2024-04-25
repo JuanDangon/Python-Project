@@ -52,7 +52,7 @@ Separation of Work:
 --Lucas Compton: Documentation (README/Distribution Plan), Database Setup, frontend framework
 --Trevor Cooley:
 --Juan Dangon:
---Jake Tyler :
+--Jake Tyler: Front end development, OpenAI implementation
 
 
 Our group had planned on using Meta's Instagram Graph API to create a similar 

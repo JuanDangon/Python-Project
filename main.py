@@ -17,7 +17,7 @@ app = Flask(__name__)
 client = OpenAI(api_key="sk-proj-XkFPt4pekFXuZvl8PHR0T3BlbkFJLiqQZctgDhe35fh2CUET")
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/instagram.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////Users/juanmanueldangon/OpenAITest/instance/instagram.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/tdcooley/Desktop/code/groupProject/Python-Project/instance/instagram.db'
 app.config['SECRET_KEY'] = 'c8a5f9e1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9c3b1d8e1c8d1e9f1b8d4d3e9' # Set a secure secret key for session handling
 db = SQLAlchemy(app)
 
@@ -125,32 +125,6 @@ def home():
         return render_template('home.html', remaining_usage=remaining_usage, current_user=user)
     else:
         return render_template('home.html', current_user=user)
-    
-
-@app.route('/admin')
-def admin():
-    user_id = session.get('user_id')
-    if not user_id:
-        return redirect('/login')
-
-    user = User.query.get(user_id)
-    if not user:
-        return redirect('/login')
-
-    # Check if the user has the required permission
-    has_permission = db.session.query(db.exists().where(
-        db.and_(
-            User.id == user_id,
-            User.role == Role.role_name,
-            RolePermission.permission_id == Permission.id,
-            Permission.permission_name == 'adminAccess'
-        )
-    )).scalar()
-
-    if not has_permission:
-        return redirect('/home', error='You do not have permission to access this page.')
-
-    return render_template('admin.html')
 
 @app.route('/admin')
 def admin():
@@ -163,6 +137,7 @@ def admin():
         return redirect('/home', error='You must be an admin to access this page.')
 
     return render_template('admin.html')
+
 
 @app.route('/admin/manage_users', methods=['GET', 'POST'])
 def manage_users():
@@ -338,10 +313,15 @@ def premium():
     user_id = session.get('user_id')
     if not user_id:
         return redirect('/login')
+    
+
+#    if not Permission.permission_name == 'premiumAccess': 
+#       return redirect('/home', error='You do not have permission to access this page.')
+
 
     user = User.query.get(user_id)
-    if user.role != 'premium':
-        return redirect('/home', error='You must be a premium user to access this page.')
+    if user.role != 'premium': 
+        return redirect('/home', error='You must be a premium user with available usage count to access this page.')
 
     if request.method == 'POST':
         if 'profile_image' in request.files:
@@ -384,6 +364,7 @@ def premium():
                     db.session.commit()
 
     return render_template('premium.html', user=user)
+
 
 if __name__ == "__main__":
     with app.app_context():

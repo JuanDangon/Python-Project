@@ -1,22 +1,9 @@
 # Python-Project
 COP 4521 Group Project
 Group Members: Lucas Compton, Trevor Cooley, Juan Dangon, Jake Tyler 
-*****************************************************************************************
-– A README file (this can be in text format or in html format) that contains any extra
-documentation for your project. This should include
-∗ A description of the problem you are trying to solve.
-∗ Any details regarding instructions for the user interface that is beyond the obvious.
-∗ A list of libraries you are using.
-∗ A list of other resources.
-∗ Descriptions of any extra features implemented (beyond the project proposal).
-2
-∗ Include a description of the separation of work (who was responsible for what pieces
-of the program).
-*****************************************************************************************
 
 
-
-    In this project, we created an AI based Social Media analysis application to review and
+In this project, we created an AI based Social Media analysis application to review and
 improve users Instagram profiles. While social media analytics is not a new idea, the 
 raw data output and insights that most of these services provide is only a top layer 
 overview of user data. These applications are useful to consolidate and view data, but 
@@ -25,7 +12,7 @@ analysis and provides users with tangible suggestions to improve their social me
 profile. This type of analytics is very beginner friendy and can help give users an 
 outside perspective of their profile. 
 
-    This application takes image files as input to initiate the analysis. Users will submit 
+This application takes image files as input to initiate the analysis. Users will submit 
 an image of their profile page in the first submission box and up to 5 images of 
 individual posts for their account. Images must be uploaded before analysis can begin. 
 Basic and premium users will both have access to the same analysis functions of the app. 

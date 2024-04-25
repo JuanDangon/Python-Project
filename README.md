@@ -26,20 +26,16 @@ be able to add and delete users, as well as modify individual user permissions.
 
 
 Libraries Used:
--os
--base64
--datetime  
--openai 
--flask 
--werkzeug 
--flask_sqlalchemy 
--sqlalchemy
--requests
--sqlite3
-
-
-Resources:
-OpenAI
+--os
+--base64
+--datetime  
+--openai 
+--flask 
+--werkzeug 
+--flask_sqlalchemy 
+--sqlalchemy
+--requests
+--sqlite3
 
 
 Separation of Work:

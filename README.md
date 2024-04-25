@@ -29,13 +29,15 @@ Libraries Used:
 --os
 --base64
 --datetime  
---openai 
+--openai (API used)
 --flask 
 --werkzeug 
 --flask_sqlalchemy 
 --sqlalchemy
 --requests
 --sqlite3
+
+
 
 
 Separation of Work:
